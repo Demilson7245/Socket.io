@@ -22,6 +22,16 @@ const io= SocketIO(server);
 //web socket
 io.on('connection', (socket)=>{
     console.log("Nueva conexion", socket.id);
+
+    socket.on("chat:message", (data)=>{
+        io.sockets.emit("chat:message", data);
+        //console.log(data);
+    });
+
+    socket.on("chat:typing", (data) => {
+        socket.broadcast.emit("chat:typing", data);
+    })
+
 });
 
 
